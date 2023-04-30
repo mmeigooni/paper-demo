@@ -1,8 +1,14 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useConnect, paperWallet } from "@thirdweb-dev/react";
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 
+const paperWalletCustomButton = paperWallet({
+  clientId: process.env.PAPER_CLIENT_ID as string,
+});
+
 const Home: NextPage = () => {
+  const connect = useConnect();
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -20,6 +26,17 @@ const Home: NextPage = () => {
           <ConnectWallet />
         </div>
 
+        <div className={styles.connect}>
+          <button
+            onClick={async () => {
+              console.log("connecting...");
+              const address = await connect(paperWalletCustomButton);
+              console.log("connected to ", address);
+            }}
+          >
+            Connect with Email
+          </button>
+        </div>
         <div className={styles.grid}>
           <a href="https://portal.thirdweb.com/" className={styles.card}>
             <h2>Portal &rarr;</h2>
