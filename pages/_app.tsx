@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { ThirdwebProvider, paperWallet } from "@thirdweb-dev/react";
 import "../styles/globals.css";
 
 // This is the chain your dApp will work on.
@@ -9,7 +9,14 @@ const activeChain = "mumbai";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider activeChain={activeChain}>
+    <ThirdwebProvider
+      supportedWallets={[
+        paperWallet({
+          clientId: process.env.PAPER_CLIENT_ID as string,
+        }),
+      ]}
+      activeChain={activeChain}
+    >
       <Component {...pageProps} />
     </ThirdwebProvider>
   );
