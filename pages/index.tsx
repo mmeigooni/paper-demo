@@ -30,7 +30,9 @@ const Home: NextPage = () => {
           <button
             onClick={async () => {
               console.log("connecting...");
-              const address = await connect(paperWalletCustomButton);
+              const address = await connect(paperWalletCustomButton, {
+                email: "muhammad+paper3@thirdweb.com",
+              });
               console.log("connected to ", address);
             }}
           >
