@@ -1,6 +1,12 @@
-import { ConnectWallet, useConnect, paperWallet } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useConnect,
+  paperWallet,
+  useAddress,
+} from "@thirdweb-dev/react";
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
+import { useEffect } from "react";
 
 const paperWalletCustomButton = paperWallet({
   clientId: process.env.PAPER_CLIENT_ID as string,
@@ -8,6 +14,11 @@ const paperWalletCustomButton = paperWallet({
 
 const Home: NextPage = () => {
   const connect = useConnect();
+  const address = useAddress();
+
+  useEffect(() => {
+    console.log(`Address: ${address}`);
+  }, [address]);
 
   return (
     <div className={styles.container}>
@@ -30,10 +41,10 @@ const Home: NextPage = () => {
           <button
             onClick={async () => {
               console.log("connecting...");
-              const address = await connect(paperWalletCustomButton, {
+              const address2 = await connect(paperWalletCustomButton, {
                 email: "muhammad+paper3@thirdweb.com",
               });
-              console.log("connected to ", address);
+              console.log("connected to ", address2);
             }}
           >
             Connect with Email
